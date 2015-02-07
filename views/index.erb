@@ -1,19 +1,57 @@
 <html>
-  <head></head>
-  <style>
-    body {
-      font-size: 72px;
-      font-weight: bold;
-      font-family: "Arial", Helvetica, sans-serif;
-      text-align: center;
-      padding-top: 20px;
-      background-color: #ADDBAD;
-      border: double;
-    }
-  </style>
+  <head>
+    <style>
+
+      body {
+        font-size: 72px;
+        font-weight: bold;
+        font-family: "Arial", Helvetica, sans-serif;
+        text-align: center;
+        padding-top: 20px;
+        background-color: #ADDBAD;
+        border: double;
+      }
+
+      .way_high {
+        color: red;
+        text-shadow: 1px 1px 1px black;
+      }
+
+      .high {
+        color: #B38287;
+        text-shadow: 2px 2px 2px black;
+      }
+
+      .way_low {
+        color: #425AF5;
+        text-shadow: 1px 1px 1px white;
+      }
+
+      .low {
+        color: #82B3AE;
+        text-shadow: 2px 2px 2px black;
+      }
+    </style>
+  </head>
   <body>
     <p>
-      Your guess is <%= message %>!
+      <% if message == "way too high" %>
+        <div class='way_high'>
+          Your guess is <%= message %>!
+        </div>
+      <% elsif message == "too high" %>
+        <div class='high'>
+          Your guess is <%= message %>!
+        </div>
+      <% elsif message == "way too low" %>
+        <div class='way_low'>
+          Your guess is <%= message %>!
+        </div>
+      <% elsif message == "too low" %>
+        <div class='low'>
+          Your guess is <%= message %>!
+        </div>
+      <% end %>
     </p>
   </body>
 </html>
