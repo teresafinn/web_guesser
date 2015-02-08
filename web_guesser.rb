@@ -3,19 +3,39 @@ require 'sinatra/reloader'
 
 SECRET_NUM ||= rand(100)
 
-get '/' do
-  guess = params['guess'].to_i
-  message = check_guess(guess)
+class Guess
+  attr_reader :guess, :message, :div_class
 
-  erb :index, :locals => {:message => message }
+  def initialize(guess)
+    @guess = guess
+    @message = check_guess(guess)
+    @div_class = css_class(guess)
+  end
+
+  def css_class(guess)
+    case
+    when guess > (SECRET_NUM + 5) then "way_high"
+    when guess > SECRET_NUM then "high"
+    when guess < (SECRET_NUM - 5) then "way_low"
+    when guess < SECRET_NUM then "low"
+    when guess == SECRET_NUM then "correct"
+    end
+  end
+
+  def check_guess(guess)
+    case
+    when guess > (SECRET_NUM + 5) then "way too high"
+    when guess > SECRET_NUM then "too high"
+    when guess < (SECRET_NUM - 5) then "way too low"
+    when guess < SECRET_NUM then "too low"
+    when guess == SECRET_NUM then "CORRECT! The secret number is #{SECRET_NUM}"
+    end
+  end
 end
 
-def check_guess(guess)
-  case
-    when guess > (SECRET_NUM + 5) then message = "way too high"
-    when guess > SECRET_NUM then message = "too high"
-    when guess < (SECRET_NUM - 5) then message = "way too low"
-    when guess < SECRET_NUM then message = "too low"
-    when guess == SECRET_NUM then message = "CORRECT! The secret number is #{SECRET_NUM}"
-  end
+get '/' do
+  guess_number = params['guess'].to_i
+  guess = Guess.new(guess_number)
+
+  erb :index, :locals => {:guess => guess }
 end

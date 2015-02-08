@@ -48,27 +48,9 @@
   </head>
   <body>
     <p>
-      <% if message == "way too high" %>
-        <div class='way_high'>
-          Your guess is <%= message %>!
-        </div>
-      <% elsif message == "too high" %>
-        <div class='high'>
-          Your guess is <%= message %>!
-        </div>
-      <% elsif message == "way too low" %>
-        <div class='way_low'>
-          Your guess is <%= message %>!
-        </div>
-      <% elsif message == "too low" %>
-        <div class='low'>
-          Your guess is <%= message %>!
-        </div>
-      <% elsif message == "CORRECT! The secret number is #{SECRET_NUM}" %>
-        <div class='correct'>
-          Your guess is <%= message %>!
-        </div>
-      <% end %>
+      <div class="<%= guess.div_class %>" >
+        Your guess is <%= guess.message %>!
+      </div>
     </p>
   </body>
 </html>
